@@ -15,6 +15,7 @@
 		B470CE54225C3C370027BE73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B470CE52225C3C370027BE73 /* LaunchScreen.storyboard */; };
 		B470CE5F225C3C370027BE73 /* Milestone1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE5E225C3C370027BE73 /* Milestone1Tests.swift */; };
 		B470CE6A225C3C370027BE73 /* Milestone1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE69225C3C370027BE73 /* Milestone1UITests.swift */; };
+		B470CE78225C4C840027BE73 /* ObjectDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE77225C4C840027BE73 /* ObjectDefinition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B470CE65225C3C370027BE73 /* Milestone1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Milestone1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B470CE69225C3C370027BE73 /* Milestone1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone1UITests.swift; sourceTree = "<group>"; };
 		B470CE6B225C3C370027BE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B470CE77225C4C840027BE73 /* ObjectDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDefinition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				B470CE50225C3C370027BE73 /* Assets.xcassets */,
 				B470CE52225C3C370027BE73 /* LaunchScreen.storyboard */,
 				B470CE55225C3C370027BE73 /* Info.plist */,
+				B470CE77225C4C840027BE73 /* ObjectDefinition.swift */,
 			);
 			path = Milestone1;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B470CE4C225C3C360027BE73 /* DetailViewController.swift in Sources */,
+				B470CE78225C4C840027BE73 /* ObjectDefinition.swift in Sources */,
 				B470CE4A225C3C360027BE73 /* MasterViewController.swift in Sources */,
 				B470CE48225C3C360027BE73 /* AppDelegate.swift in Sources */,
 			);
