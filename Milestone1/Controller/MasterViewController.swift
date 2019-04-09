@@ -19,7 +19,7 @@ class MasterViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         navigationItem.leftBarButtonItem = editButtonItem
 
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNew(_:)))
         navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
@@ -33,12 +33,11 @@ class MasterViewController: UITableViewController {
     }
     
     @objc func loadList(){
-        emptyString()
         tableView.reloadData()
     }
     
     @objc
-    func insertNewObject(_ sender: Any) {
+    func insertNew(_ sender: Any) {
         let objNum = objects.count
         objects.append(ObjectDefinition(name: "Blank", address: "", latitude: 0.0, longitude: 0.0))
         let indexPath = IndexPath(row: objNum, section: 0)
@@ -66,6 +65,9 @@ class MasterViewController: UITableViewController {
             }
         }
 
+    func insertNewObject(){
+        tableView.reloadData()
+    }
 
 //    func emptyString(){
 //        if objects.last?.name == "" || objects.last?.address == ""{
@@ -106,12 +108,6 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let object = objects.remove(at: sourceIndexPath.row)
         objects.insert(object, at: destinationIndexPath.row)
-    }
-    
-    func emptyString(){
-        if objects.last?.name == ""{
-            objects.removeLast()
-        }
     }
 
 }

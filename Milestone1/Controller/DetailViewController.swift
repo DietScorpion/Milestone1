@@ -15,7 +15,6 @@ protocol DetailViewControllerDelegate: class {
 
 class DetailViewController: UIViewController, UITextFieldDelegate {
     var detailItem: ObjectDefinition?
-    var cancel = false
     weak var delegate: DetailViewControllerDelegate?
     
     @IBOutlet weak var nameField: UITextField!
@@ -33,9 +32,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         self.view.endEditing(true)
-        return false
+        saveInModel()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        delegate?.insertNewObject()
+        return true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,7 +46,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         saveInModel()
-        delegate?.insertNewObject()
     }
 
     func configureView() {
