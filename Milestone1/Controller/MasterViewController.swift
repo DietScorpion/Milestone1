@@ -16,7 +16,7 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
@@ -32,11 +32,15 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
+    @objc func loadList(){
+        emptyString()
+        tableView.reloadData()
+    }
     
     @objc
     func insertNewObject(_ sender: Any) {
         let objNum = objects.count
-        objects.append(ObjectDefinition(name: "Test", address: "", latitude: 0.0, longitude: 0.0))
+        objects.append(ObjectDefinition(name: "Blank", address: "", latitude: 0.0, longitude: 0.0))
         let indexPath = IndexPath(row: objNum, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         performSegue(withIdentifier: "showDetail", sender: indexPath)
@@ -46,21 +50,28 @@ class MasterViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
+            let indexPath: IndexPath
+            if let i = sender as? IndexPath {
+                indexPath = i
+            } else if let cell = sender as? UITableViewCell,
+                let i = tableView.indexPath(for: cell) {
+                indexPath = i
+            } else { return }
+            
+            let object = objects[indexPath.row]
+            let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+            controller.detailItem = object
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
-    }
 
-    func emptyString(){
-        if objects.last?.name == "" || objects.last?.address == ""{
-            objects.removeLast()
-        }
-    }
+
+//    func emptyString(){
+//        if objects.last?.name == "" || objects.last?.address == ""{
+//            objects.removeLast()
+//        }
+//    }
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -96,7 +107,13 @@ class MasterViewController: UITableViewController {
         let object = objects.remove(at: sourceIndexPath.row)
         objects.insert(object, at: destinationIndexPath.row)
     }
-
+    
+    func emptyString(){
+        if objects.last?.name == ""{
+            objects.removeLast()
+        }
+    }
 
 }
+
 
