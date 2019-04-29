@@ -15,7 +15,6 @@ protocol DetailViewControllerDelegate: class {
 }
 
 class DetailViewController: UIViewController, UITextFieldDelegate {
-    let geo = CLGeocoder()
     var detailItem: ObjectDefinition?
     weak var delegate: DetailViewControllerDelegate?
     
@@ -32,12 +31,39 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         latitudeField.delegate = self
         longitudeField.delegate = self
     }
-
+    
+    func addressFinder(){
+        let geo = CLGeocoder()
+        guard let address = addressField.text else {
+            return
+        }
+        var latitude = ""
+        var longitude = ""
+        geo.geocodeAddressString(address){
+            guard let placeMarks = $0 else{
+                print("Got Error: \(String(describing: $1))")
+                return
+            }
+            for placeMark in placeMarks{
+                guard let location = placeMark.location else{
+                    continue
+                }
+            
+                latitude = "\(location.coordinate.latitude)"
+                longitude = "\(location.coordinate.longitude)"
+                self.latitudeField.text = latitude
+                self.longitudeField.text = longitude
+                self.saveInModel()
+            }
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         saveInModel()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         delegate?.insertNewObject()
+        addressFinder()
         return true
     }
     
