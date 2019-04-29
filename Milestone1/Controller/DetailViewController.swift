@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol DetailViewControllerDelegate: class {
     func insertNewObject()
@@ -14,6 +15,7 @@ protocol DetailViewControllerDelegate: class {
 }
 
 class DetailViewController: UIViewController, UITextFieldDelegate {
+    let geo = CLGeocoder()
     var detailItem: ObjectDefinition?
     weak var delegate: DetailViewControllerDelegate?
     
