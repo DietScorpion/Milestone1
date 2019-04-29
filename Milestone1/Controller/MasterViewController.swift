@@ -25,6 +25,7 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        getFromStorage()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +35,8 @@ class MasterViewController: UITableViewController {
     
     @objc func loadList(){
         tableView.reloadData()
+        storage()
+        print("stored")
     }
     
     @objc
@@ -67,6 +70,36 @@ class MasterViewController: UITableViewController {
 
     func insertNewObject(){
         tableView.reloadData()
+        
+    }
+    
+    func storage() {
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let encoder = JSONEncoder()
+        do{
+            let JSON = try encoder.encode(objects)
+            let fileURL = docs.appendingPathComponent("JSON")
+            try JSON.write(to: fileURL, options: .atomic)
+        } catch{
+            print("Error: \(error)")
+        }
+    }
+    
+    func getFromStorage(){
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let decoder = JSONDecoder()
+        do{
+            let fileURL = docs.appendingPathComponent("JSON")
+            let data = try Data(contentsOf: fileURL)
+            let places = try decoder.decode([ObjectDefinition].self, from : data)
+            print("Got \(places.count)")
+            objects = []
+            for place in places{
+                objects.append(place)
+            }
+        } catch{
+            print("Error: \(error)")
+        }
     }
 
 //    func emptyString(){

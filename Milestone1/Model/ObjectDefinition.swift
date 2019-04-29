@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ObjectDefinition{
+class ObjectDefinition: Codable{
     var name: String
     var address: String
     var latitude: Double
