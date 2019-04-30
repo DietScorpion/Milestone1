@@ -12,11 +12,13 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects: [ObjectDefinition] = []
+    var newItem = false
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(cancelPressed), name: NSNotification.Name(rawValue: "cancel"), object: nil)
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNew(_:)))
@@ -27,10 +29,19 @@ class MasterViewController: UITableViewController {
         }
         getFromStorage()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+    }
+    
+    @objc func cancelPressed(){
+        if newItem == true{
+            objects.removeLast()
+            newItem = false
+        }
+        navigationController?.popViewController(animated: true)
+        tableView.reloadData()
     }
     
     @objc func loadList(){
@@ -41,6 +52,7 @@ class MasterViewController: UITableViewController {
     
     @objc
     func insertNew(_ sender: Any) {
+        newItem = true
         let objNum = objects.count
         objects.append(ObjectDefinition(name: "Blank", address: "", latitude: 0.0, longitude: 0.0))
         let indexPath = IndexPath(row: objNum, section: 0)

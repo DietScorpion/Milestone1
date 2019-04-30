@@ -11,10 +11,11 @@ import CoreLocation
 
 protocol DetailViewControllerDelegate: class {
     func insertNewObject()
-    
+    func cancelPressed()
 }
 
 class DetailViewController: UIViewController, UITextFieldDelegate {
+    var copyOfOriginalItem: ObjectDefinition?
     var detailItem: ObjectDefinition?
     weak var delegate: DetailViewControllerDelegate?
     
@@ -32,28 +33,42 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         longitudeField.delegate = self
     }
     
+    @IBAction func cancelButton(_ sender: Any) {
+        guard let copy = copyOfOriginalItem else { return }
+        detailItem?.name = copy.name
+        detailItem?.address = copy.address
+        detailItem?.latitude = copy.latitude
+        detailItem?.longitude = copy.longitude
+        configureView()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "cancel"), object: nil)
+    }
+    
+
+    
     func addressFinder(){
         let geo = CLGeocoder()
         guard let address = addressField.text else {
             return
         }
-        var latitude = ""
-        var longitude = ""
-        geo.geocodeAddressString(address){
-            guard let placeMarks = $0 else{
-                print("Got Error: \(String(describing: $1))")
-                return
-            }
-            for placeMark in placeMarks{
-                guard let location = placeMark.location else{
-                    continue
+        if latitudeField.text == "0.0" && longitudeField.text == "0.0" || latitudeField.text == "" && longitudeField.text == ""{
+            var latitude = ""
+            var longitude = ""
+            geo.geocodeAddressString(address){
+                guard let placeMarks = $0 else{
+                    print("Got Error: \(String(describing: $1))")
+                    return
                 }
-            
-                latitude = "\(location.coordinate.latitude)"
-                longitude = "\(location.coordinate.longitude)"
-                self.latitudeField.text = latitude
-                self.longitudeField.text = longitude
-                self.saveInModel()
+                for placeMark in placeMarks{
+                    guard let location = placeMark.location else{
+                        continue
+                    }
+                
+                    latitude = "\(location.coordinate.latitude)"
+                    longitude = "\(location.coordinate.longitude)"
+                    self.latitudeField.text = latitude
+                    self.longitudeField.text = longitude
+                    self.saveInModel()
+                }
             }
         }
     }
@@ -86,6 +101,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         addressField.text = detailItem.address
         latitudeField.text = "\(detailItem.latitude)"
         longitudeField.text = "\(detailItem.longitude)"
+        guard copyOfOriginalItem == nil else {
+            return
+        }
+        copyOfOriginalItem = ObjectDefinition(name: detailItem.name, address: detailItem.address, latitude: detailItem.latitude,longitude: detailItem.longitude )
     }
 
     func saveInModel() {
