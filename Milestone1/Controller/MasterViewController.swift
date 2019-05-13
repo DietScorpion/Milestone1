@@ -114,13 +114,6 @@ class MasterViewController: UITableViewController {
         }
     }
 
-//    func emptyString(){
-//        if objects.last?.name == "" || objects.last?.address == ""{
-//            objects.removeLast()
-//        }
-//    }
-    // MARK: - Table View
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

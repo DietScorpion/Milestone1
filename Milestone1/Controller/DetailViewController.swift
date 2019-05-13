@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreLocation
+import MapKit
+import CoreLocation
 
 protocol DetailViewControllerDelegate: class {
     func insertNewObject()
@@ -23,6 +25,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addressField: UITextField!
     @IBOutlet weak var latitudeField: UITextField!
     @IBOutlet weak var longitudeField: UITextField!
+    @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +45,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         configureView()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "cancel"), object: nil)
     }
-    
-
     
     func addressFinder(){
         let geo = CLGeocoder()
@@ -79,6 +80,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         delegate?.insertNewObject()
         addressFinder()
+        mapLookUp()
         return true
     }
     
@@ -125,6 +127,24 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    func mapLookUp(){
+        let latNumConversion :Double? = Double(latitudeField.text!)
+        let longNumConversion :Double? = Double(longitudeField.text!)
+        let coordinates = CLLocationCoordinate2D(latitude: latNumConversion!, longitude: longNumConversion!)
+        let region = MKCoordinateRegion(center: coordinates, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        mapView.setRegion(region, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinates
+            annotation.title = self.addressField.text
+            annotation.subtitle = "\(coordinates.latitude), \(coordinates.longitude)"
+            // let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "")
+            self.mapView.addAnnotation(annotation)
+        }
+    }
+    
     func insertNewObject(_ sender: Any){
         guard let d = delegate else { return }
         d.insertNewObject()

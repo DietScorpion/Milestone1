@@ -16,6 +16,8 @@
 		B470CE5F225C3C370027BE73 /* Milestone1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE5E225C3C370027BE73 /* Milestone1Tests.swift */; };
 		B470CE6A225C3C370027BE73 /* Milestone1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE69225C3C370027BE73 /* Milestone1UITests.swift */; };
 		B470CE78225C4C840027BE73 /* ObjectDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE77225C4C840027BE73 /* ObjectDefinition.swift */; };
+		B4EC73762289852700996586 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4EC73752289852700996586 /* CoreLocation.framework */; };
+		B4EC737822899E4500996586 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4EC737722899E4500996586 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		B470CE69225C3C370027BE73 /* Milestone1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone1UITests.swift; sourceTree = "<group>"; };
 		B470CE6B225C3C370027BE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B470CE77225C4C840027BE73 /* ObjectDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDefinition.swift; sourceTree = "<group>"; };
+		B4EC73752289852700996586 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B4EC737722899E4500996586 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4EC737822899E4500996586 /* MapKit.framework in Frameworks */,
+				B4EC73762289852700996586 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +91,7 @@
 				B470CE5D225C3C370027BE73 /* Milestone1Tests */,
 				B470CE68225C3C370027BE73 /* Milestone1UITests */,
 				B470CE45225C3C360027BE73 /* Products */,
+				B4EC73742289852600996586 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +160,15 @@
 				B470CE4B225C3C360027BE73 /* DetailViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		B4EC73742289852600996586 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B4EC737722899E4500996586 /* MapKit.framework */,
+				B4EC73752289852700996586 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

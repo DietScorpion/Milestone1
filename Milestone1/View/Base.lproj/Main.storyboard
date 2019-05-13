@@ -82,6 +82,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6q6-Ew-nBK">
+                                <rect key="frame" x="0.0" y="220" width="375" height="447"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -120,6 +124,7 @@
                         <outlet property="addressField" destination="E2g-ty-Zyb" id="36d-YD-Jah"/>
                         <outlet property="latitudeField" destination="3bF-W4-59B" id="Pux-t3-OzI"/>
                         <outlet property="longitudeField" destination="fG3-YB-1YS" id="j2T-cA-h96"/>
+                        <outlet property="mapView" destination="6q6-Ew-nBK" id="gXg-4P-1He"/>
                         <outlet property="nameField" destination="wgS-B9-xvr" id="5Ar-S0-PCV"/>
                     </connections>
                 </viewController>
