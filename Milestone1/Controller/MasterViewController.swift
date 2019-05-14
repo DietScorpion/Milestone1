@@ -9,9 +9,11 @@
 import UIKit
 
 class MasterViewController: UITableViewController {
-
+    ///This initalises the definition set by the class
     var detailViewController: DetailViewController? = nil
+    ///This initalises the definition set by the class in an array
     var objects: [ObjectDefinition] = []
+    ///This variable is used to verify whether a new Item has been created
     var newItem = false
 
 
@@ -35,7 +37,7 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
         newItem = false
     }
-    
+    /// This object starts the process of reverting the data to the original data and then reloads the table
     @objc func cancelPressed(){
         if newItem == true{
             objects.removeLast()
@@ -45,14 +47,15 @@ class MasterViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    ///This object loads the stored data that was save previously
     @objc func loadList(){
         tableView.reloadData()
         storage()
         print("stored")
     }
     
-    @objc
-    func insertNew(_ sender: Any) {
+    ///This object is responsible for preforming the segue to the detail view and setting a default input for said page
+    @objc func insertNew(_ sender: Any) {
         newItem = true
         let objNum = objects.count
         objects.append(ObjectDefinition(name: "Blank", address: "", latitude: 0.0, longitude: 0.0))
@@ -81,11 +84,12 @@ class MasterViewController: UITableViewController {
             }
         }
 
+    ///This function is responsible for reloading the page after an object is inserted
     func insertNewObject(){
         tableView.reloadData()
-        
     }
     
+    ///This function is responsible for encoding the data into a local JSON file used for the storage of the tables
     func storage() {
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let encoder = JSONEncoder()
@@ -98,6 +102,7 @@ class MasterViewController: UITableViewController {
         }
     }
     
+    ///This function is responsible for decoding the stored JSON files and adding them back to the table's array
     func getFromStorage(){
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let decoder = JSONDecoder()
@@ -128,12 +133,8 @@ class MasterViewController: UITableViewController {
 
         let object = objects[indexPath.row]
         cell.textLabel!.text = object.name
-        if object.address.isEmpty{
-            cell.detailTextLabel!.text = "No Address"
-        }else{
-            cell.detailTextLabel!.text = object.address
-        }
-        
+        cell.detailTextLabel!.text = object.address
+    
         return cell
     }
 

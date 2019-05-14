@@ -16,6 +16,7 @@
 		B470CE5F225C3C370027BE73 /* Milestone1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE5E225C3C370027BE73 /* Milestone1Tests.swift */; };
 		B470CE6A225C3C370027BE73 /* Milestone1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE69225C3C370027BE73 /* Milestone1UITests.swift */; };
 		B470CE78225C4C840027BE73 /* ObjectDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B470CE77225C4C840027BE73 /* ObjectDefinition.swift */; };
+		B4731293228ABFA400800417 /* LaunchScreen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4731292228ABFA400800417 /* LaunchScreen.jpg */; };
 		B4EC73762289852700996586 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4EC73752289852700996586 /* CoreLocation.framework */; };
 		B4EC737822899E4500996586 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4EC737722899E4500996586 /* MapKit.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		B470CE69225C3C370027BE73 /* Milestone1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone1UITests.swift; sourceTree = "<group>"; };
 		B470CE6B225C3C370027BE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B470CE77225C4C840027BE73 /* ObjectDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDefinition.swift; sourceTree = "<group>"; };
+		B4731292228ABFA400800417 /* LaunchScreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = LaunchScreen.jpg; path = ../../../LaunchScreen.jpg; sourceTree = "<group>"; };
 		B4EC73752289852700996586 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B4EC737722899E4500996586 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 		B470CE7A225C9ADB0027BE73 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B4731292228ABFA400800417 /* LaunchScreen.jpg */,
 				B470CE52225C3C370027BE73 /* LaunchScreen.storyboard */,
 				B470CE4D225C3C360027BE73 /* Main.storyboard */,
 			);
@@ -277,6 +280,7 @@
 			files = (
 				B470CE54225C3C370027BE73 /* LaunchScreen.storyboard in Resources */,
 				B470CE51225C3C370027BE73 /* Assets.xcassets in Resources */,
+				B4731293228ABFA400800417 /* LaunchScreen.jpg in Resources */,
 				B470CE4F225C3C360027BE73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
