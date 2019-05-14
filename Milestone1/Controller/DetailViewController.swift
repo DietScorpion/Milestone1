@@ -9,14 +9,14 @@
 import UIKit
 import CoreLocation
 import MapKit
-import CoreLocation
+
 
 protocol DetailViewControllerDelegate: class {
     func insertNewObject()
     func cancelPressed()
 }
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UITableViewController, UITextFieldDelegate {
     var copyOfOriginalItem: ObjectDefinition?
     var detailItem: ObjectDefinition?
     weak var delegate: DetailViewControllerDelegate?
@@ -69,9 +69,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                     self.latitudeField.text = latitude
                     self.longitudeField.text = longitude
                     self.saveInModel()
+                    self.mapLookUp()
                 }
             }
         }
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -80,13 +82,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
         delegate?.insertNewObject()
         addressFinder()
-        mapLookUp()
+        
         return true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         configureView()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,6 +109,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         guard copyOfOriginalItem == nil else {
             return
         }
+        
+        if latitudeField.text != "" && latitudeField.text != "" && latitudeField.text != "0.0" && latitudeField.text != "0.0"{
+            mapLookUp()
+        }
+        
         copyOfOriginalItem = ObjectDefinition(name: detailItem.name, address: detailItem.address, latitude: detailItem.latitude,longitude: detailItem.longitude )
     }
 
@@ -138,11 +146,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinates
-            annotation.title = self.addressField.text
+            annotation.title = self.nameField.text
             annotation.subtitle = "\(coordinates.latitude), \(coordinates.longitude)"
             // let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "")
             self.mapView.addAnnotation(annotation)
         }
+    }
+    
+    func reverseGeoLookUp(){
+        
     }
     
     func insertNewObject(_ sender: Any){

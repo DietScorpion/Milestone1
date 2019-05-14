@@ -33,6 +33,7 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        newItem = false
     }
     
     @objc func cancelPressed(){
@@ -127,6 +128,12 @@ class MasterViewController: UITableViewController {
 
         let object = objects[indexPath.row]
         cell.textLabel!.text = object.name
+        if object.address.isEmpty{
+            cell.detailTextLabel!.text = "No Address"
+        }else{
+            cell.detailTextLabel!.text = object.address
+        }
+        
         return cell
     }
 
